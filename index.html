@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ClientFlow CRM — a bilingual (Arabic / English) customer management prototype built with React, TypeScript and Vite." />
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>ClientFlow CRM</title>
+    <script>
+      // Apply the saved language before React renders to avoid a flash of the wrong direction.
+      (function () {
+        try {
+          var lang = localStorage.getItem('clientflow.language');
+          if (lang !== 'ar' && lang !== 'en') {
+            lang = (navigator.language || '').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
+          }
+          document.documentElement.lang = lang;
+          document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>ClientFlow CRM requires JavaScript. / يتطلب ClientFlow CRM تفعيل JavaScript.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
