@@ -4,18 +4,20 @@
 
 :root {
   --font-latin: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-arabic: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, 'Geeza Pro', 'Arial', sans-serif;
+  --font-arabic: 'Almarai', 'Noto Sans Arabic', 'Segoe UI', Tahoma, 'Geeza Pro', 'Arial', sans-serif;
 
-  --bg: #f4f6f8;
+  --bg: #f6f8fc;
   --surface: #ffffff;
-  --surface-muted: #f8fafb;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --text: #0f172a;
-  --text-muted: #5b6b7f;
-  --primary: #0f766e;
-  --primary-hover: #0d5f59;
-  --primary-soft: #e6f4f2;
+  --surface-muted: #f4f7fb;
+  --border: #e3e8f0;
+  --border-strong: #cfd8e5;
+  --text: #0b1b33;
+  --text-muted: #5a6a82;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-soft: #e8efff;
+  /* Navy wash used by the highlighted dashboard tile. */
+  --primary-deep: #1e3a8a;
   --danger: #c0262d;
   --danger-hover: #a11d23;
   --danger-soft: #fdecec;
@@ -30,9 +32,9 @@
   --inactive: #64748b;
   --inactive-soft: #eef1f5;
 
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 1px 3px rgb(15 23 42 / 0.06);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 4px 16px rgb(16 24 40 / 0.05);
   --shadow-lg: 0 10px 30px rgb(15 23 42 / 0.16);
   --sidebar-width: 256px;
 
@@ -104,8 +106,9 @@ h1:focus, main:focus { outline: none; }
   inline-size: var(--sidebar-width);
   block-size: 100vh;
   padding: 1.25rem 1rem;
-  background: #0b2e2b;
-  color: #d7ebe8;
+  background: var(--surface);
+  color: var(--text-muted);
+  border-inline-end: 1px solid var(--border);
   flex-shrink: 0;
 }
 .sidebar__brand { display: flex; align-items: center; gap: 0.75rem; }
@@ -113,30 +116,28 @@ h1:focus, main:focus { outline: none; }
   display: grid; place-items: center;
   inline-size: 40px; block-size: 40px;
   border-radius: 10px;
-  background: #14b8a6; color: #04201d;
+  background: var(--primary); color: #fff;
   font-weight: 700; font-family: var(--font-latin);
 }
-.brand-name { font-weight: 700; color: #fff; font-family: var(--font-latin); }
-.brand-tagline { font-size: 0.78rem; color: #9cc5bf; }
+.brand-name { font-weight: 700; color: var(--text); font-family: var(--font-latin); }
+.brand-tagline { font-size: 0.78rem; color: var(--text-muted); }
 .icon-btn.sidebar__close { display: none; margin-inline-start: auto; color: inherit; }
 .nav-list { display: flex; flex-direction: column; gap: 0.25rem; }
 .nav-link {
   display: flex; align-items: center; gap: 0.75rem;
   padding: 0.65rem 0.85rem;
   border-radius: var(--radius-sm);
-  color: #d7ebe8;
+  color: var(--text-muted);
   text-decoration: none;
   font-weight: 500;
 }
-.nav-link:hover { background: rgb(255 255 255 / 0.08); }
+.nav-link:hover { background: var(--surface-muted); }
 .nav-link--active {
-  background: rgb(20 184 166 / 0.18);
-  color: #fff;
-  box-shadow: inset 3px 0 0 #14b8a6;
+  background: var(--primary-soft);
+  color: var(--primary-hover);
+  font-weight: 700;
 }
-/* The active indicator sits on the inline-start edge in both directions. */
-[dir='rtl'] .nav-link--active { box-shadow: inset -3px 0 0 #14b8a6; }
-.sidebar__note { margin-block-start: auto; font-size: 0.78rem; color: #9cc5bf; }
+.sidebar__note { margin-block-start: auto; font-size: 0.78rem; color: var(--text-muted); }
 
 .shell__main { flex: 1; min-inline-size: 0; display: flex; flex-direction: column; }
 
@@ -144,7 +145,7 @@ h1:focus, main:focus { outline: none; }
   position: sticky; inset-block-start: 0; z-index: 10;
   display: flex; align-items: center; gap: 0.75rem;
   padding: 0.75rem 1.5rem;
-  background: rgb(244 246 248 / 0.9);
+  background: rgb(246 248 252 / 0.9);
   backdrop-filter: blur(8px);
   border-block-end: 1px solid var(--border);
 }
@@ -243,8 +244,19 @@ h1:focus, main:focus { outline: none; }
 }
 .stat-card__icon {
   display: grid; place-items: center;
-  inline-size: 40px; block-size: 40px; border-radius: 10px;
+  inline-size: 40px; block-size: 40px; border-radius: 12px;
   background: var(--primary-soft); color: var(--primary);
+}
+/* The headline figure gets the filled treatment; the rest stay plain cards. */
+.stats-grid > .stat-card:first-child {
+  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  border-color: transparent;
+  color: #fff;
+}
+.stats-grid > .stat-card:first-child .stat-card__label,
+.stats-grid > .stat-card:first-child .stat-card__hint { color: #dbe6ff; }
+.stats-grid > .stat-card:first-child .stat-card__icon {
+  background: rgb(255 255 255 / 0.18); color: #fff;
 }
 .stat-card__label { color: var(--text-muted); font-size: 0.86rem; font-weight: 500; }
 .stat-card__value { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
