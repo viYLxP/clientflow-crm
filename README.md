@@ -80,7 +80,8 @@ tests/        unit (Vitest) and e2e (Playwright)
 Static build with hash routing and relative paths, so it runs on any static host without rewrite rules.
 
 - **Vercel / Netlify / Cloudflare Pages:** import the repository; build command `npm run build`, output `dist`.
-- **GitHub Pages:** `.github/workflows/deploy.yml` lints, tests, builds and deploys. In the repository open **Settings → Pages → Source → GitHub Actions**.
+- **GitHub Pages (optional):** in the repository open **Settings → Pages → Source → GitHub Actions**, then run **Actions → Deploy to GitHub Pages → Run workflow**.
+- **CI:** `.github/workflows/ci.yml` lints, tests and builds every push.
 
 **Taking it to production** would mean adding an API and database, authentication and server-side validation. `CrmContext` is where a data layer plugs in.
 
